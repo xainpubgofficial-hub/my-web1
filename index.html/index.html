@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shop E‑Commerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* ---------- Reset & Variables ---------- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary: #2c3e50;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+        --radius: 8px;
+        --gap: 1.5rem;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* ---------- Layout ---------- */
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 var(--gap);
+      }
+      header {
+        background: var(--primary);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem var(--gap);
+      }
+      .logo img {
+        height: 50px;
+      }
+      .menu {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+      }
+      .menu a {
+        color: #fff;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+      .menu a:hover {
+        color: var(--accent);
+      }
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      /* ---------- Hero (Home) ---------- */
+      #home {
+        background: var(--primary);
+        color: #fff;
+        text-align: center;
+        padding: 4rem var(--gap);
+      }
+      #home h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+      #home p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      /* ---------- Tabs ---------- */
+      .tabs {
+        margin: 2rem var(--gap);
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .tabs button {
+        background: var(--light);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .tabs button.active {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      /* ---------- Products Grid ---------- */
+      #products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--gap);
+        padding: 0 var(--gap);
+      }
+      .product {
+        background: #fff;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .product:hover {
+        transform: translateY(-5px);
+      }
+      .product img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .info {
+        padding: 1rem;
+        text-align: center;
+      }
+      .info h3 {
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+      }
+      .info p {
+        font-size: 0.9rem;
+        color: #777;
+        margin: 0.4rem 0;
+      }
+      .price {
+        font-weight: 600;
+        color: var(--accent);
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+      .buy-btn {
+        background: var(--accent);
+        color: #fff;
+        padding: 0.6rem 1rem;
+        border-radius: var(--radius);
+        display: inline-block;
+        margin-top: 0.5rem;
+        transition: 0.3s;
+      }
+      .buy-btn:hover {
+        background: #c0392b;
+      }
+
+      /* ---------- Info & Contact ---------- */
+      .section {
+        padding: 3rem var(--gap);
+        max-width: 800px;
+        margin: auto;
+      }
+      .section h2 {
+        margin-bottom: 1rem;
+      }
+      .section ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        background: var(--primary);
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem var(--gap);
+        font-size: 0.9rem;
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+        .menu {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          background: var(--primary);
+          flex-direction: column;
+          align-items: center;
+          padding: 1rem 0;
+          transition: 0.4s;
+        }
+        .menu.active {
+          left: 0;
+        }
+        .menu a {
+          padding: 0.8rem 0;
+          width: 100%;
+          text-align: center;
+        }
+        #home h1 {
+          font-size: 2rem;
+        }
+      }
+
+      /* ---------- Smooth Scroll ---------- */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="#" class="logo"
+          ><img src="https://i.ibb.co/nN7dypGC/logo.png" alt="Logo"
+        /></a>
+        <ul class="menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#info">Info</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger"><i class="fas fa-bars"></i></div>
+      </nav>
+    </header>
+
+    <!-- Home -->
+    <section id="home">
+      <div class="container">
+        <h1>Welcome to Shop</h1>
+        <p>Simple, fast. Browse products and order instantly via WhatsApp.</p>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs container">
+      <button class="active" data-tab="all">All</button>
+      <button data-tab="electronics">Electronics</button>
+      <button data-tab="clothing">Clothing</button>
+      <button data-tab="new">new products</button>
+    </div>
+
+    <!-- Products -->
+    <section id="products" class="container"></section>
+
+    <!-- Info -->
+    <section id="info" class="section container">
+      <h2>About Us</h2>
+      <p>
+        We are a small store offering quality products at affordable prices. No
+        login, no signup – just pick and WhatsApp us!
+      </p>
+      <ul>
+        <li>Free shipping on orders above $50</li>
+        <li>7‑day return policy</li>
+        <li>Secure payments via bank transfer</li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section container">
+      <h2>Contact</h2>
+      <p>
+        WhatsApp:
+        <a href="https://wa.me/923277092121" target="_blank">+92 337709 2121</a>
+      </p>
+      <p>
+        Email: <a href="mailto:hamza71097109@gmail.com">Contact VIA Email</a>
+      </p>
+    </section>
+
+    <footer>
+      <div class="container">
+        © <span id="year"></span> ShopHub – All rights reserved.
+      </div>
+    </footer>
+    Rs204 Rs290 (30% OFF)
+
+    <script>
+      // ---------- Products JSON (easily editable) ----------
+      const products = [
+        {
+          id: 1,
+          cat: "electronics",
+          name: "Food Weight Machine",
+          desc: "High‑quality , Water Proof",
+          price: "RS 770",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/54ed04d2-f46d-49e7-8321-10a2961008f3.jpg",
+        },
+        {
+          id: 2,
+          cat: "electronics",
+          name: "Adjustable mobile stand in pure plastic box pack best quality",
+          desc: " (30% OFF)",
+          price: "RS 270",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/a5caf629-619e-4edc-9432-309b86e2b1b2.jpg",
+        },
+        {
+          id: 3,
+          cat: "new",
+          name: "Smart LED Temperature Display Water Bottle | 500ml Stainless Steel Vacuum Flask for Hot & Cold Beverages | Intelligent Thermos with Temperature Control",
+          desc: "Reliable",
+          price: "RS 680.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/62ba43bc-a9d2-464a-b568-923bb9598b55.jpeg",
+        },
+        {
+          id: 4,
+          cat: "clothing",
+          name: "Finger Strengthener, Grip Strength Trainer, ",
+          desc: "Slim fit, durable",
+          price: "$39.99",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/1471ffac-2f3a-4ab7-a134-7dc287bfb58d.jpg",
+        },
+        {
+          id: 5,
+          cat: "home",
+          name: "Cucumber Carrot Potato Slicer Peeler Grater Fruit,Vegetable,Cutter,Silver Blade,Multicolours,Quality Material",
+          desc: "Easy to USE",
+          price: "Rs 130.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/bdce2d84-91a7-4199-9332-1020630bda18.jpeg",
+        },
+        {
+          id: 6,
+          cat: "home",
+          name: "Laptop Table",
+          desc: "Handcrafted, elegant design",
+          price: "RS 1300.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/fa16a28d-1dc7-4723-bcdf-b983064ee2fa.jpg",
+        },
+        {
+          id: 7,
+          cat: "electronics",
+          name: "Hair Oil Applicator Bottle",
+          desc: "high quality ",
+          price: "RS 98.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/043908d8-8b32-4552-8fd2-19b920504fcd.jpg",
+        },
+        {
+          id: 8,
+          cat: "clothing",
+          name: "DAN TECHNOLOGY Premium Mini Electric Sewing Machine – Portable Stitching Machine for Clothes with Foot Pedal, LED Light, Automatic Bobbin – Ideal for Beginners & Home Tailoring DIY",
+          desc: "G    enuine leather, stylish",
+          price: "RS 2400",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/ffc55597-e906-4e10-a66f-128e9af3be9c.jpg",
+        },
+        {
+          id: 9,
+          cat: "home",
+          name: "Waterproof Self-Adhesive Window Screen Repair Tape, Anti-Insect Mesh Patch For Dorm Doors/Curtains, Strong Adhesive Repair Tape For Torn Screens, 2M/78.74INCH Length",
+          desc: "Modern       design, ready to hang",
+          price: "RS 170.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/3165e566-47fb-4de0-a1de-08e432643a4e.jpg",
+        },
+        {
+          id: 10,
+          cat: "new",
+          name: "Perfume Refill Bottle (Black) - Refillable Perfume Atomizer Spray Portable Travel Size Bottles Accessories - Perfume Refill Travel Friendly Spray Bottle",
+          desc: "Compact size, USB powered",
+          price: "Rs 170.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/a507c069-0d19-4bc6-81ba-abb921f3d38b.jpeg",
+        },
+        {
+          id: 11,
+          cat: "electronics",
+          name: "3-in-1 Functionality: Combines vacuuming, blowing, and dust removal in one versatile device Wireless & Rechargeable: Cordless convenience with a long-lasting rechargeable battery High-Power Suction: E",
+          desc: "Fast charging, sleek design",
+          price: "Rs 770.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/d35edef2-80e0-4573-9836-2dcda0c9cf3b.jpg",
+        },
+        {
+          id: 12,
+          cat: "clothing",
+          name: "Foot Massagers",
+          desc: "Genuine leather, stylish",
+          price: "Rs 499.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/fb715269-5f1c-4f5e-a4e0-d0da131e44a8.jpg",
+        },
+        {
+          id: 13,
+          cat: "home",
+          name: "Portable Mini Electric Neck Massager EMS Massage Patch for Muscle Pain Relief",
+          desc: "Microwave safe, 350ml",
+          price: "Rs 310.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/432fa3ed-aade-4af6-b9da-709a9407cf6f.jpg",
+        },
+        {
+          id: 14,
+          cat: "new",
+          name: "Ice Roller for Face, Pink, 4.5inch Silicone Ice Face Roller, Reusable Ice Cube Roller Massager, Skin Care Tools for Face Eyes Puffiness Brighten & Tighten Skin",
+          desc: "Portable, 10h battery",
+          price: "Rs 499.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/3c6c8eb0-10ee-4fbd-b732-767f98f5735e.jpg",
+        },
+        {
+          id: 15,
+          cat: "electronics",
+          name: "T9 Vintage Hair Trimmer For Men | T9 Rechargeable Shaver Machine For Men| Professional Hair Trimming Machine | Hair Trimmer and Shaver For Boys T9 Vintage Hair Trimmer For Men | T9 Rechargeable Shaver",
+          desc: "Multiport adapter, compact",
+          price: "$49.99",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/4f5ce0c5-ba76-489a-8fd9-34b1e8e068b0.jpg",
+        },
+        {
+          id: 16,
+          cat: "clothing",
+          name: "Manual Vegetable Cutter Slicer Round ,Grater,3 in1 Slicer,kadokash, Table top Drum grater Chopper Blades Multifunctional Kitchen Gadgets Cutting Machine.",
+          desc: "Water resistant, fitness tracking",
+          price: "Rs 880.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/fbc3aa4e-d20b-4cd4-ab72-e6ade8fd0007.jpg",
+        },
+        {
+          id: 17,
+          cat: "clothing",
+          name: "5 Layer Multifunctional Plastic Jewelry Box Earrings Ring Storage Organizer",
+          desc: "Water resistant, fitness tracking",
+          price: "Rs 700.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/53ab8385-b6ab-4730-a187-56a34e7d8846.jpg",
+        },
+        {
+          id: 18,
+          cat: "clothing",
+          name: "Car Shape Water Bottle Little Locomotive Plastic Sports Water Cup with Straps Cute Baby Bus Children's Straw Water Cup",
+          desc: "Water resistant, fitness tracking",
+          price: "Rs 980.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/26706610-c77b-4538-8450-2f985ce3a2ea.jpg",
+        },
+        {
+          id: 19,
+          cat: "electronics",
+          name: "1 Pcs Dustproof Silicone Remote Control Covers TV & AC Remote Control Case Dust Protect Storage Bag",
+          desc: "AC Remote Case ",
+          price: "Rs 200.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/220e569b-3366-4561-92ff-3deba97e76d6.jpg",
+        },
+        {
+          id: 20,
+          cat: "home",
+          name: "High Quality LED Solar Wall Lamp, Solar Light Outdoor Waterproof Up And Down Luminous Lighting Garden Decoration Solar Lights Stairs Fence Sunlight Lamp",
+          desc: "Microwave safe, 350ml",
+          price: "Rs 600.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/9190e715-307e-43ad-9c03-77ad051d7045.jpg",
+        },
+        {
+          id: 21,
+          cat: "electronics",
+          name: "Electric Stove for cooking, Hot Plate heat up in just 2 mins, Easy to clean, 1500W, Automatic Electric Stove (electric choolah) Original Electric Stove For CookingAdjustable Temperature Control Hot Pl",
+          desc: "Description",
+          price: "Rs 1240.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/947c7fba-cb39-4ccc-9711-3757684cff6b.jpg",
+        },
+       {  id: 22,
+          cat: "home",
+          name: "Ear Wax Cleaning Kit, 6 Pcs Ear Pick Tools, Wax Removal Kit, Ear Cleaning Tool Set, Spring Earwax Cleaner Tool Ear Wax Remover, Reusable Ear Cleaner for Children and Adult",
+          desc: "Microwave safe, 350ml",
+          price: "Rs 160.00",
+          img: "https://dukaan.b-cdn.net/700x700/webp/media/cee94768-2243-41f7-910d-4f0f57f2713d.jpg",
+        },
+        {id: 23,
+            cat: "clothing",
+            name: "Automatic Toothpaste Dispenser Wall-Mounted Device | Easy Squeeze Toothpaste Holder for Bathroom Organization | Hygiene Gadget for Family Use",
+            desc: "Microwave safe, 350ml",
+            price: "Rs 360.00", 
+            img: "https://dukaan.b-cdn.net/700x700/webp/media/8e861c5d-e62d-4df8-bbc6-386f0e8f10cd.jpg",
+        }
+        // Add up to 100 products here – keep the same object shape
+        // Example for 100 items (duplicate pattern):
+        // {id:6,cat:"electronics",name:"Product 6",desc:"Description",price:"$XX.XX",img:"https://via.placeholder.com/300x200?text=Img6"},
+      ];
+
+      // ---------- Render Products ----------
+      const productGrid = document.getElementById("products");
+      function render(filter = "all") {
+        productGrid.innerHTML = "";
+        const filtered =
+          filter === "all"
+            ? products
+            : products.filter((p) => p.cat === filter);
+        filtered.forEach((p) => {
+          const div = document.createElement("div");
+          div.className = "product";
+          div.innerHTML = `
+      <a href="${p.img}" target="_blank"><img src="${p.img}" alt="${
+            p.name
+          }"></a>
+      <div class="info">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price">${p.price}</div>
+        <a href="https://wa.me/923277092121?text=Hi!%20I%20want%20to%20buy%20${encodeURIComponent(
+          p.name
+        )}%20(${p.price})" 
+           target="_blank" class="buy-btn">Buy</a>
+      </div>`;
+          productGrid.appendChild(div);
+        });
+      }
+      render();
+
+      // ---------- Tab Filtering ----------
+      document.querySelectorAll(".tabs button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelector(".tabs button.active")
+            .classList.remove("active");
+          btn.classList.add("active");
+          render(btn.dataset.tab);
+        });
+      });
+
+      // ---------- Mobile Menu ----------
+      const hamburger = document.querySelector(".hamburger");
+      const menu = document.querySelector(".menu");
+      hamburger.addEventListener("click", () =>
+        menu.classList.toggle("active")
+      );
+
+      // ---------- Footer Year ----------
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
